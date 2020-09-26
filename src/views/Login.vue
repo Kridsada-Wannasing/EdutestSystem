@@ -23,14 +23,14 @@
                 </v-card-subtitle>
                 <v-form v-model="valid">
                   <v-text-field
-                    v-model="Username"
-                    :rules="usernameRules"
-                    label="Username"
+                    v-model="email"
+                    :rules="emailRules"
+                    label="Email"
                     required
                   ></v-text-field>
                   <v-text-field
                     class="mt-3"
-                    v-model="Password"
+                    v-model="password"
                     :rules="passwordRules"
                     label="Password"
                     required
@@ -44,7 +44,7 @@
                       >Forgot Password</v-btn
                     >
                   </div>
-                  <v-btn rounded class="form--login--btn mt-10" depressed
+                  <v-btn class="form--login--btn mt-10" depressed @click="login"
                     >Login</v-btn
                   >
                 </v-form>
@@ -64,29 +64,29 @@ export default {
     return {
       fluid: true,
       outlined: true,
-      Username: "",
-      Password: "",
+      email: "",
+      password: "",
       checkbox: false,
 
       // Validate Section
       valid: false,
-      usernameRules: [(v) => !!v || "Username is required"],
+      emailRules: [(v) => !!v || "Email is required"],
       passwordRules: [(v) => !!v || "Password is required"],
     };
   },
   methods: {
     login() {
-      console.log("method login");
-      this.$store
-        .dispatch("admin/login", {
-          email: this.Username,
-          password: this.Password,
-        })
-        .then((res) => {
-          alert(`${res.data.message} ${res.data.token}`);
-          console.log(res.data);
-        })
-        .catch((err) => alert(err));
+      // this.$store
+      //   .dispatch("admin/login", {
+      //     email: this.email,
+      //     password: this.password,
+      //   })
+      //   .then((res) => {
+      //     alert(`${res.data.message} ${res.data.token}`);
+      //     console.log(res.data);
+      //   })
+      //   .catch((err) => alert(err));
+      this.$router.push({ path: "/student" });
     },
   },
 };

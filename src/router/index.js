@@ -11,19 +11,21 @@ const routes = [
     component: () => import("../views/Login.vue"),
   },
   {
-    path: "/Home",
+    path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/admin-stu",
-    name: "AdminStudent",
-    component: () => import("../views/AdminStudent.vue"),
-  },
-  {
-    path: "/admin-tch",
-    name: "AdminTch",
-    component: () => import("../views/AdminTch.vue"),
+    children: [
+      {
+        path: "/student",
+        name: "AdminStudent",
+        component: () => import("../views/AdminStudent.vue"),
+      },
+      {
+        path: "/teacher",
+        name: "AdminTch",
+        component: () => import("../views/AdminTch.vue"),
+      },
+    ],
   },
 ];
 
