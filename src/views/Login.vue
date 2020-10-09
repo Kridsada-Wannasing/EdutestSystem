@@ -35,7 +35,7 @@
                     label="Password"
                     required
                   ></v-text-field>
-                  <div class="d-flex align-center justify-space-between my-5">
+                  <!-- <div class="d-flex align-center justify-space-between my-5">
                     <v-checkbox
                       v-model="checkbox"
                       label="Remember me"
@@ -43,7 +43,7 @@
                     <v-btn text class="form--login--btnforgot"
                       >Forgot Password</v-btn
                     >
-                  </div>
+                  </div> -->
                   <v-btn class="form--login--btn mt-10" depressed @click="login"
                     >Login</v-btn
                   >

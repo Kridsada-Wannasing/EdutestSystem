@@ -42,9 +42,6 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.$store.dispatch("teacher/getAllTeachers");
-  },
   computed: {
     ...mapState("teacher", ["teachers"]),
   },

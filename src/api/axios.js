@@ -1,4 +1,5 @@
 import axios from "axios";
+import NProgress from "nprogress";
 
 export const apiClient = axios.create({
   baseURL: "http://localhost:8000/admin",
@@ -12,6 +13,8 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
+    NProgress.start();
+
     if (
       config.url.includes("/login") ||
       config.url.includes("/forgot-password")
@@ -30,3 +33,8 @@ apiClient.interceptors.request.use(
     Promise.reject(error);
   }
 );
+
+apiClient.interceptors.response.use((response) => {
+  NProgress.done();
+  return response;
+});

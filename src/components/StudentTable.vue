@@ -48,9 +48,6 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.$store.dispatch("student/getAllStudents");
-  },
   computed: {
     ...mapState("student", ["students"]),
   },
