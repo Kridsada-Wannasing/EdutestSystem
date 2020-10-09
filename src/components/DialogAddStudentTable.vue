@@ -30,7 +30,15 @@
           <v-toolbar flat color="white">
             <v-toolbar-title>{{ dataTable.length }} คน</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn small outlined color="success" dark class="mb-2">Save</v-btn>
+            <v-btn
+              small
+              outlined
+              color="success"
+              dark
+              class="mb-2 mr-2"
+              @click="save"
+              >Save</v-btn
+            >
             <v-btn
               small
               outlined
@@ -64,7 +72,6 @@ export default {
         { text: "Email", value: "email" },
         { text: "Faculty", value: "faculty" },
         { text: "Department", value: "department" },
-        { text: "Actions", value: "actions" },
       ],
       selectedFile: null,
       dataTable: [],
@@ -102,7 +109,6 @@ export default {
         let wb = xlsx.read(fileData, { type: "binary" });
         let wsname = wb.SheetNames[0];
         this.dataTable = xlsx.utils.sheet_to_json(wb.Sheets[wsname]);
-        console.log(this.dataTable);
       };
       reader.readAsBinaryString(this.selectedFile);
     },
@@ -112,11 +118,11 @@ export default {
     },
     async save() {
       const response = await this.$store.dispatch(
-        "admin/registerStudents",
+        "student/registerStudents",
         this.dataTable
       );
       alert(`${response.status}: ${response.message}`);
-      this.dialog = false;
+      this.cancel();
     },
     cancel() {
       this.uploadFile = null;

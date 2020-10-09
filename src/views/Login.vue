@@ -76,17 +76,15 @@ export default {
   },
   methods: {
     login() {
-      // this.$store
-      //   .dispatch("admin/login", {
-      //     email: this.email,
-      //     password: this.password,
-      //   })
-      //   .then((res) => {
-      //     alert(`${res.data.message} ${res.data.token}`);
-      //     console.log(res.data);
-      //   })
-      //   .catch((err) => alert(err));
-      this.$router.push({ path: "/student" });
+      this.$store
+        .dispatch("admin/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ path: "/student" });
+        })
+        .catch((err) => alert(err));
     },
   },
 };

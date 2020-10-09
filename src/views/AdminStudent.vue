@@ -1,18 +1,18 @@
 <template>
-  <div id="adminStudent">
+  <div id="adminStudent" class="white--text">
     <v-container>
-      <TiltleBar />
       <v-row>
-        <v-col cols="12" md="8">
-          <FilterBar />
-          <Table />
+        <v-col cols="4">
+          <h1>บัญชีนักศึกษา</h1>
         </v-col>
-        <v-col cols="12" md="4">
-          <v-row>
-            <v-col>
-              <AddUser />
-            </v-col>
-          </v-row>
+        <v-spacer></v-spacer>
+        <v-col cols="2">
+          <p>{{ admin }}</p>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <StudentTable />
         </v-col>
       </v-row>
     </v-container>
@@ -20,18 +20,17 @@
 </template>
 
 <script>
-import TiltleBar from "@/components/TitleBar";
-import FilterBar from "@/components/FilterBar";
-import Table from "@/components/Table";
-import AddUser from "@/components/AddUser";
+import StudentTable from "@/components/StudentTable";
 export default {
   components: {
-    TiltleBar,
-    FilterBar,
-    Table,
-    AddUser,
+    StudentTable,
   },
   name: "adminStudent",
+  computed: {
+    admin() {
+      return JSON.parse(localStorage.getItem("admin")).firstName;
+    },
+  },
 };
 </script>
 

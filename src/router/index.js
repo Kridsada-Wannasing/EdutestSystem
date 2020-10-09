@@ -12,9 +12,10 @@ const routes = [
     component: () => import("../views/Login.vue"),
   },
   {
-    path: "/admin",
+    path: "/",
     name: "Home",
     component: Home,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "student",
@@ -54,6 +55,15 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem("token_admin");
+
+  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+    next("/");
+  }
+  next();
 });
 
 export default router;
