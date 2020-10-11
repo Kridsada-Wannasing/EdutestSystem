@@ -32,6 +32,7 @@
                     class="mt-3"
                     v-model="password"
                     :rules="passwordRules"
+                    type="password"
                     label="Password"
                     required
                   ></v-text-field>

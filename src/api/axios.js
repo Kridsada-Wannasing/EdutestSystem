@@ -2,7 +2,7 @@ import axios from "axios";
 import NProgress from "nprogress";
 
 export const apiClient = axios.create({
-  baseURL: "http://localhost:8000/admin",
+  baseURL: process.env.VUE_APP_API_URL + "/admin",
   withCredentials: false,
   headers: {
     Accept: "application/json",
