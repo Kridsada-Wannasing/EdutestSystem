@@ -16,6 +16,9 @@
             <DialogAddStudentTable />
           </v-toolbar>
         </template>
+        <template v-slot:item.fullName="{ item }">
+          <span>{{ item.firstName }} {{ item.lastName }}</span>
+        </template>
         <template v-slot:item.actions="{ item }">
           <v-icon small @click="deleteStudent(item)">mdi-delete</v-icon>
         </template>
@@ -40,8 +43,8 @@ export default {
           sortable: false,
           value: "studentId",
         },
-        { text: "Name", value: "firstName", sortable: false },
-        { text: "Surname", value: "lastName", sortable: false },
+        { text: "Name", value: "fullName", sortable: false },
+        { text: "Email", value: "email", sortable: false },
         { text: "Faculty", value: "faculty", sortable: false },
         { text: "Department", value: "department", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
@@ -54,7 +57,10 @@ export default {
   methods: {
     deleteStudent(item) {
       confirm("ต้องการลบรายชื่อนักศึกษาหรือไม่") &&
-        this.$store.dispatch("student/deleteStudent", item.studentId);
+        this.$store
+          .dispatch("student/deleteStudent", item.studentId)
+          .then(() => alert("ลบรายชื่อนักศึกษาเรียบร้อย"))
+          .catch((error) => alert(error));
     },
   },
 };
