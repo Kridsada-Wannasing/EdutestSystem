@@ -77,6 +77,9 @@ export default {
   },
   methods: {
     login() {
+      if (!this.email || !this.password) {
+        return alert("คุณยังไม่ได้ใส่อีเมลหรือรหัสผ่าน");
+      }
       this.$store
         .dispatch("admin/login", {
           email: this.email,
