@@ -88,7 +88,7 @@ export default {
         .then(() => {
           this.$router.push({ path: "/student" });
         })
-        .catch((err) => alert(err));
+        .catch((err) => alert(err.response.data.message));
     },
   },
 };
