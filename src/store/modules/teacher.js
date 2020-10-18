@@ -23,19 +23,31 @@ export const mutations = {
 
 export const actions = {
   async registerTeachers({ commit }, newTeachers) {
-    const response = await teacherServices.registerTeachers(newTeachers);
-    response.data.newAccount.map((teacher) => commit("ADD_TEACHER", teacher));
-    return response.data;
+    try {
+      const response = await teacherServices.registerTeachers(newTeachers);
+      response.data.newAccount.map((teacher) => commit("ADD_TEACHER", teacher));
+      return response.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   async getAllTeachers({ commit }) {
-    const response = await teacherServices.getAllTeachers();
-    commit("SET_TEACHERS", response.data.allTeachers);
-    return response.data.newTeachers;
+    try {
+      const response = await teacherServices.getAllTeachers();
+      commit("SET_TEACHERS", response.data.allTeachers);
+      return response.data.newTeachers;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   async deleteTeacher({ commit }, teacherId) {
-    const response = await teacherServices.deleteTeacher(teacherId);
-    commit("DELETE_TEACHER", teacherId);
-    return response;
+    try {
+      const response = await teacherServices.deleteTeacher(teacherId);
+      commit("DELETE_TEACHER", teacherId);
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
 };
 

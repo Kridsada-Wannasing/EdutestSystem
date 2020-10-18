@@ -24,24 +24,41 @@ export const mutations = {
 
 export const actions = {
   async login({ commit }, credentials) {
-    const response = await adminServices.login(credentials);
+    try {
+      const response = await adminServices.login(credentials);
 
-    commit("SET_TOKEN", response.data.token);
-    commit("SET_ADMIN", response.data.admin);
+      commit("SET_TOKEN", response.data.token);
+      commit("SET_ADMIN", response.data.admin);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   logout({ commit }) {
     commit("CLEAR_ADMIN");
   },
   async updateMe({ commit }, data) {
-    const response = await adminServices.updateMe(data);
+    try {
+      const response = await adminServices.updateMe(data);
 
-    commit("SET_ADMIN", response.data.admin);
+      commit("SET_ADMIN", response.data.admin);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   async updatePassword({ oldPassword, newPassword }) {
-    await adminServices.updatePassword(oldPassword, newPassword);
+    try {
+      await adminServices.updatePassword(oldPassword, newPassword);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
   async forgotPassword(email) {
-    await adminServices.forgotPassword(email);
+    try {
+      const response = await adminServices.forgotPassword(email);
+      return response.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
 };
 
