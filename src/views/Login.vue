@@ -21,7 +21,7 @@
                 <v-card-subtitle class="mt-4 form--login--subtitle">
                   Welcome back! Please login to your account.
                 </v-card-subtitle>
-                <v-form v-model="valid">
+                <v-form v-model="valid" ref="form">
                   <v-text-field
                     v-model="email"
                     :rules="emailRules"
@@ -36,16 +36,11 @@
                     label="Password"
                     required
                   ></v-text-field>
-                  <!-- <div class="d-flex align-center justify-space-between my-5">
-                    <v-checkbox
-                      v-model="checkbox"
-                      label="Remember me"
-                    ></v-checkbox>
-                    <v-btn text class="form--login--btnforgot"
-                      >Forgot Password</v-btn
-                    >
-                  </div> -->
-                  <v-btn class="form--login--btn mt-10" depressed @click="login"
+                  <v-btn
+                    class="form--login--btn mt-10"
+                    depressed
+                    @click="login"
+                    :disabled="!valid"
                     >Login</v-btn
                   >
                 </v-form>
@@ -68,18 +63,14 @@ export default {
       email: "",
       password: "",
       checkbox: false,
-
-      // Validate Section
-      valid: false,
-      emailRules: [(v) => !!v || "Email is required"],
-      passwordRules: [(v) => !!v || "Password is required"],
+      valid: true,
+      emailRules: [(v) => !!v || "กรุณาใส่อีเมล"],
+      passwordRules: [(v) => !!v || "กรุณาใส่รหัสผ่าน"],
     };
   },
   methods: {
     login() {
-      if (!this.email || !this.password) {
-        return alert("คุณยังไม่ได้ใส่อีเมลหรือรหัสผ่าน");
-      }
+      this.$refs.form.validate();
       this.$store
         .dispatch("admin/login", {
           email: this.email,
