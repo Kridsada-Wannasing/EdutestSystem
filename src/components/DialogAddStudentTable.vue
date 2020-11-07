@@ -117,12 +117,16 @@ export default {
       this.dataTable.splice(index, 1);
     },
     async save() {
-      const response = await this.$store.dispatch(
-        "student/registerStudents",
-        this.dataTable
-      );
-      alert(`${response.status}: ${response.message}`);
-      this.cancel();
+      try {
+        const response = await this.$store.dispatch(
+          "student/registerStudents",
+          this.dataTable
+        );
+        alert(`${response.status}: ${response.message}`);
+        this.cancel();
+      } catch (error) {
+        alert(`${error.status}: ${error.message}`);
+      }
     },
     cancel() {
       this.uploadFile = null;
