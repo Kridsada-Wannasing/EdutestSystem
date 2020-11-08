@@ -25,8 +25,11 @@ export const actions = {
   async registerTeachers({ commit }, newTeachers) {
     try {
       const response = await teacherServices.registerTeachers(newTeachers);
+
+      if (!response.data.newAccount) throw response.data;
+
       response.data.newAccount.map((teacher) => commit("ADD_TEACHER", teacher));
-      return response.data;
+      return Promise.resolve(response.data);
     } catch (error) {
       return Promise.reject(error);
     }
